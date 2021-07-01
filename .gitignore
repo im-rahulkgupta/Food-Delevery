@@ -17,8 +17,8 @@ node_module/
 build/
 
 # Firebase config
-firebase.json/
-.firebaserc.firebaserc
+firebase
+.firebaserc
 
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
