@@ -5,24 +5,24 @@ import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem/MealItem";
 
 const AvailableMeals = () => {
-
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    const fetchMeals = async() => {
-      const response = await fetch('https://react-http-4c1ae-default-rtdb.firebaseio.com/meals.json');
-
-      if(!response.ok){
-        throw new Error('Something Went Wrong !');
+    const fetchMeals = async () => {
+      const response = await fetch(
+        "https://react-http-4c1ae-default-rtdb.firebaseio.com/meals.json"
+      );
+      if (!response.ok) {
+        throw new Error("Something Went Wrong !");
       }
 
       const responseData = await response.json();
 
       const loadedMeals = [];
 
-      for(const key in responseData){
+      for (const key in responseData) {
         loadedMeals.push({
           id: key,
           name: responseData[key].name,
@@ -33,25 +33,27 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsloading(false);
     };
-    
-    fetchMeals().catch(error => {
+
+    fetchMeals().catch((error) => {
       setIsloading(false);
       setHttpError(error.message);
     });
-
   }, []);
 
-  if(isLoading){
-    return <section className={classes.MealsLoading}>
-      <p>Loading...</p>
-    </section>
+  if (isLoading) {
+    return (
+      <section className={classes.MealsLoading}>
+        <p>Loading...</p>
+      </section>
+    );
   }
 
-  if(httpError){
-    
-    return <section className={classes.MealsError}>
-      <p>{httpError}</p>
-    </section>
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{httpError}</p>
+      </section>
+    );
   }
 
   const mealsList = meals.map((meal) => (

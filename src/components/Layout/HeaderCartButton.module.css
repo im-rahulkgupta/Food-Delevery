@@ -12,14 +12,20 @@
     font-weight: bold;
   }
   
+  @media screen and (max-width: 600px)  {
+    .button{
+      padding: 0.5rem 1rem;
+    }
+  }
+
   .button:hover,
   .button:active {
     background-color: #2c0d00;
   }
   
   .icon {
-    width: 1.35rem;
-    height: 1.35rem;
+    height: 30px;
+    width: 35px;
     margin-right: 0.5rem;
   }
   
