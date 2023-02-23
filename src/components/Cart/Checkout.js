@@ -38,10 +38,7 @@ const Checkout = (props) => {
     });
 
     const formIsValid =
-      enteredNameIsValid &&
-      enteredStreetIsValid &&
-      enteredCityIsValid &&
-      enteredPostalCodeIsValid;
+      enteredNameIsValid && enteredStreetIsValid && enteredCityIsValid && enteredPostalCodeIsValid;
 
     if (!formIsValid) {
       return;
@@ -52,13 +49,17 @@ const Checkout = (props) => {
       street: enteredStreet,
       city: enteredCity,
       postalCode: enteredPostalCode,
-    })
+    });
   };
 
-  const nameControlClasses = `${classes.control} ${formInputsValidity.name ? '' : classes.invalid }`;
-  const streetControlClasses = `${classes.control} ${formInputsValidity.street ? '' : classes.invalid }`;
-  const postalCodeControlClasses = `${classes.control} ${formInputsValidity.postalCode ? '' : classes.invalid }`;
-  const cityControlClasses = `${classes.control} ${formInputsValidity.city ? '' : classes.invalid }`;
+  const nameControlClasses = `${classes.control} ${formInputsValidity.name ? "" : classes.invalid}`;
+  const streetControlClasses = `${classes.control} ${
+    formInputsValidity.street ? "" : classes.invalid
+  }`;
+  const postalCodeControlClasses = `${classes.control} ${
+    formInputsValidity.postalCode ? "" : classes.invalid
+  }`;
+  const cityControlClasses = `${classes.control} ${formInputsValidity.city ? "" : classes.invalid}`;
 
   return (
     <form className={classes.form} onSubmit={confirmHandler}>

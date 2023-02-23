@@ -8,36 +8,54 @@ const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [httpError, setHttpError] = useState();
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch(
-        "https://react-http-4c1ae-default-rtdb.firebaseio.com/meals.json"
-      );
-      if (!response.ok) {
-        throw new Error("Something Went Wrong !");
+      try {
+        const response = await fetch(
+          "https://react-http-4c1ae-default-rtdb.firebaseio.com/meals.json"
+        );
+
+        // if (!response.ok) {
+        //   throw new Error("Something Went Wrong !");
+        // }
+
+        const responseData = await response.json();
+
+        const loadedMeals = [];
+
+        for (const key in responseData) {
+          loadedMeals.push({
+            id: key,
+            name: responseData[key].name,
+            description: responseData[key].description,
+            price: responseData[key].price,
+          });
+        }
+
+        setMeals(loadedMeals);
+        localStorage.setItem("meals", JSON.stringify(loadedMeals));
+      } catch (error) {
+        if (!navigator.onLine) {
+          const mealsStored = localStorage.getItem("meals");
+          setMeals(JSON.parse(mealsStored));
+          setIsOffline(true);
+        } else {
+          setHttpError(error.message);
+          throw new Error("Something Went Wrong !");
+        }
+      } finally {
+        setIsloading(false);
       }
-
-      const responseData = await response.json();
-
-      const loadedMeals = [];
-
-      for (const key in responseData) {
-        loadedMeals.push({
-          id: key,
-          name: responseData[key].name,
-          description: responseData[key].description,
-          price: responseData[key].price,
-        });
-      }
-      setMeals(loadedMeals);
-      setIsloading(false);
     };
 
-    fetchMeals().catch((error) => {
-      setIsloading(false);
-      setHttpError(error.message);
-    });
+    fetchMeals();
+    // .catch((error) => {
+    //   setIsloading(false);
+    //   setHttpError(error.message);
+    //   console.log("error", error.message);
+    // });
   }, []);
 
   if (isLoading) {
@@ -68,6 +86,7 @@ const AvailableMeals = () => {
 
   return (
     <section className={classes.meals}>
+      {isOffline ? <p className={classes.offline}>You are offline</p> : null}
       <ul>
         <Card>{mealsList}</Card>
       </ul>
