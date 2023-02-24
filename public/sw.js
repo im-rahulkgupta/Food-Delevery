@@ -4,13 +4,14 @@ this.addEventListener("install", (event) => {
   event.waitUntill(
     caches.open(cacheData).then((cache) => {
       cache.addAll([
-        "/static/js/main.fef40c7e.chunk.js",
-        "/static/js/2.d8c80119.chunk.js",
-        "/static/js/bundle.js",
-        "index.html",
+        "/static/js/main.266c6628.chunk.js",
+        "/static/js/2.03feb706.chunk.js",
+        // "/static/js/bundle.js",
+        // "index.html",
+        "favicon.png",
         "/",
         "/static/media/meals.2971f633.jpg",
-        "/static/css/main.cb55be55.chunk.css",
+        "/static/css/main.cf018e33.chunk.css",
       ]);
     })
   );

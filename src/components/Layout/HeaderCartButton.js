@@ -16,9 +16,7 @@ const HeaderCartButton = (props) => {
     return curNumber + item.amount;
   }, 0);
 
-  const btnClasses = `${classes.button} ${
-    btnIsHighlighted ? classes.bump : ""
-  }`;
+  const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ""}`;
 
   useEffect(() => {
     if (items.length === 0) {
@@ -40,7 +38,7 @@ const HeaderCartButton = (props) => {
       <span className={classes.icon}>
         <CartIcon />
       </span>
-      <span>Your Cart</span>
+      <span className={classes.cartLabel}>Your Cart</span>
       <span className={classes.badge}>{numberOfCartItems}</span>
     </button>
   );
